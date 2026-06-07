@@ -2,13 +2,8 @@ FROM golang:1.26.1-alpine AS build
 
 WORKDIR /src
 
-RUN apk add --no-cache git
-
-COPY go.mod go.sum ./
-RUN go mod download
-
 COPY . .
-RUN CGO_ENABLED=0 go build -o /out/site .
+RUN CGO_ENABLED=0 go build -mod=vendor -o /out/site .
 
 FROM scratch
 
