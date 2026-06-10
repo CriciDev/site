@@ -3,6 +3,7 @@ package analytics
 import (
 	"encoding/json"
 	"errors"
+	"strings"
 	"time"
 )
 
@@ -43,11 +44,46 @@ func (e Event) Validate() error {
 	if e.Type == "" {
 		return errors.New("event type is required")
 	}
-	if e.SessionID == "" {
+
+	switch e.Type {
+	case EventPageview, EventClick, EventSessionStart, EventSessionEnd, EventHeartbeat:
+	default:
+		return errors.New("invalid event type")
+	}
+
+	if strings.TrimSpace(e.SessionID) == "" {
 		return errors.New("session id is required")
 	}
-	if e.Path == "" {
+	if len(e.SessionID) > 128 {
+		return errors.New("session id is too long")
+	}
+
+	if strings.TrimSpace(e.Path) == "" {
 		return errors.New("path is required")
 	}
+	if len(e.Path) > 2048 {
+		return errors.New("path is too long")
+	}
+
+	if e.DurationMS < 0 {
+		return errors.New("duration must be positive")
+	}
+	if e.DurationMS > int64(24*time.Hour/time.Millisecond) {
+		return errors.New("duration is too long")
+	}
+
+	if len(e.Target) > 256 {
+		return errors.New("target is too long")
+	}
+	if len(e.Label) > 256 {
+		return errors.New("label is too long")
+	}
+	if len(e.Referrer) > 2048 {
+		return errors.New("referrer is too long")
+	}
+	if len(e.Metadata) > 8192 {
+		return errors.New("metadata is too large")
+	}
+
 	return nil
 }
