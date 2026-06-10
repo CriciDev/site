@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"log"
 	"net/http"
 	"os"
@@ -51,7 +52,12 @@ func Run() error {
 	}
 
 	log.Printf("cricidev site listening on %s", addr)
-	return httpServer.ListenAndServe()
+
+	if err := httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+		return err
+	}
+
+	return nil
 }
 
 func env(key, fallback string) string {
