@@ -22,20 +22,24 @@
     return fresh;
   };
 
-  const send = (payload, useBeacon = false) => {
+  const send = async (payload, useBeacon = false) => {
     const body = JSON.stringify(payload);
     if (useBeacon && navigator.sendBeacon) {
       const ok = navigator.sendBeacon(endpoint, new Blob([body], { type: "application/json" }));
-      if (ok) return;
+      if (ok) return true;
     }
 
-    fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-      keepalive: true,
-      credentials: "same-origin",
-    }).catch(() => {});
+    try {
+      await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body,
+        keepalive: true,
+        credentials: "same-origin",
+      });
+    } catch (_) {}
+
+    return false;
   };
 
   const basePayload = () => ({
@@ -46,7 +50,7 @@
   });
 
   const track = (type, extra = {}, useBeacon = false) => {
-    send({ type, ...basePayload(), ...extra }, useBeacon);
+    return send({ type, ...basePayload(), ...extra }, useBeacon);
   };
 
   const trackClick = (event) => {
@@ -71,11 +75,13 @@
     );
   };
 
-  const startSession = () => {
+  const startSession = async () => {
     if (window.sessionStorage.getItem(activeKey) === "1") return;
+    const started = now();
     window.sessionStorage.setItem(activeKey, "1");
+    window.sessionStorage.setItem(startKey, String(started));
 
-    track("session_start", {
+    await track("session_start", {
       duration_ms: 0,
     });
     track("pageview");

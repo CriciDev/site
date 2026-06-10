@@ -81,19 +81,18 @@ func eventsHandler(store *analytics.Store) http.HandlerFunc {
 			now := time.Now().UTC()
 			payload.CreatedAt = now
 
-			switch payload.Type {
-			case analytics.EventSessionStart:
-				if err := store.StartSession(r.Context(), analytics.Session{
-					ID:        payload.SessionID,
-					Path:      payload.Path,
-					Referrer:  payload.Referrer,
-					UserAgent: r.UserAgent(),
-					StartedAt: now,
-				}); err != nil {
-					http.Error(w, "failed to store session", http.StatusInternalServerError)
-					return
-				}
+			if err := store.StartSession(r.Context(), analytics.Session{
+				ID:        payload.SessionID,
+				Path:      payload.Path,
+				Referrer:  payload.Referrer,
+				UserAgent: r.UserAgent(),
+				StartedAt: now,
+			}); err != nil {
+				http.Error(w, "failed to store session", http.StatusInternalServerError)
+				return
+			}
 
+			switch payload.Type {
 			case analytics.EventSessionEnd:
 				if err := store.EndSession(r.Context(), payload.SessionID, payload.DurationMS, now); err != nil && !errors.Is(err, sql.ErrNoRows) {
 					http.Error(w, "failed to close session", http.StatusInternalServerError)

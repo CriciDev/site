@@ -341,6 +341,14 @@ a {
   background: rgba(7, 17, 31, 0.7);
 }
 
+.contributors__image {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 16px;
+  background: rgba(7, 17, 31, 0.7);
+}
+
 .contributors__caption {
   margin-top: 0.9rem;
   color: var(--muted);
