@@ -15,7 +15,6 @@ O projeto usa:
 - landing page da comunidade
 - coleta simples de analytics em SQLite
 - assets estáticos em `assets/`
-- exemplos de abordagens de front em Go em `examples/`
 
 ## Estrutura
 
@@ -27,7 +26,6 @@ internal/analytics  persistência e eventos
 pages/home       template da home
 assets/          CSS, JS e imagens
 db/              schema do SQLite
-examples/        catálogo de possibilidades de front em Go
 ```
 
 ## Requisitos
@@ -96,4 +94,3 @@ templ generate
 ## Build
 
 O `Dockerfile` compila o binário a partir de `./cmd/site`.
-
