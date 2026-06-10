@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"context"
@@ -14,17 +14,17 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-func main() {
+func Run() error {
 	addr := env("ADDR", ":8080")
 	dbPath := env("DB_PATH", "/data/cricidev.db")
 
 	if err := os.MkdirAll(filepath.Dir(dbPath), 0o755); err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	db, err := sql.Open("sqlite", dbPath)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer db.Close()
 
@@ -32,12 +32,12 @@ func main() {
 	db.SetConnMaxLifetime(0)
 
 	if err := db.Ping(); err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	store := analytics.NewStore(db)
 	if err := store.Migrate(context.Background()); err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	srv := server.New(store)
@@ -51,7 +51,7 @@ func main() {
 	}
 
 	log.Printf("cricidev site listening on %s", addr)
-	log.Fatal(httpServer.ListenAndServe())
+	return httpServer.ListenAndServe()
 }
 
 func env(key, fallback string) string {
