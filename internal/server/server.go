@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strings"
 	"time"
 
 	"cricidev/site/internal/analytics"
@@ -59,6 +60,11 @@ func eventsHandler(store *analytics.Store) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodPost:
+			if !sameOrigin(r) {
+				http.Error(w, "forbidden", http.StatusForbidden)
+				return
+			}
+
 			var payload analytics.Event
 			decoder := json.NewDecoder(http.MaxBytesReader(w, r.Body, 64<<10))
 			decoder.DisallowUnknownFields()
@@ -66,15 +72,14 @@ func eventsHandler(store *analytics.Store) http.HandlerFunc {
 				http.Error(w, "bad request", http.StatusBadRequest)
 				return
 			}
+
 			if err := payload.Validate(); err != nil {
 				http.Error(w, err.Error(), http.StatusBadRequest)
 				return
 			}
 
-			if err := store.RecordEvent(r.Context(), payload); err != nil {
-				http.Error(w, "failed to store event", http.StatusInternalServerError)
-				return
-			}
+			now := time.Now().UTC()
+			payload.CreatedAt = now
 
 			switch payload.Type {
 			case analytics.EventSessionStart:
@@ -83,24 +88,45 @@ func eventsHandler(store *analytics.Store) http.HandlerFunc {
 					Path:      payload.Path,
 					Referrer:  payload.Referrer,
 					UserAgent: r.UserAgent(),
-					StartedAt: payload.CreatedAt,
+					StartedAt: now,
 				}); err != nil {
 					http.Error(w, "failed to store session", http.StatusInternalServerError)
 					return
 				}
+
 			case analytics.EventSessionEnd:
-				if err := store.EndSession(r.Context(), payload.SessionID, payload.DurationMS, payload.CreatedAt); err != nil && !errors.Is(err, sql.ErrNoRows) {
+				if err := store.EndSession(r.Context(), payload.SessionID, payload.DurationMS, now); err != nil && !errors.Is(err, sql.ErrNoRows) {
 					http.Error(w, "failed to close session", http.StatusInternalServerError)
 					return
 				}
 			}
 
+			if err := store.RecordEvent(r.Context(), payload); err != nil {
+				http.Error(w, "failed to store event", http.StatusInternalServerError)
+				return
+			}
+
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusAccepted)
 			_ = json.NewEncoder(w).Encode(map[string]any{"ok": true})
+
 		default:
 			w.Header().Set("Allow", http.MethodPost)
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		}
 	}
+}
+
+func sameOrigin(r *http.Request) bool {
+	origin := r.Header.Get("Origin")
+	if origin == "" {
+		return true
+	}
+
+	host := r.Host
+	if host == "" {
+		return false
+	}
+
+	return strings.EqualFold(origin, "http://"+host) || strings.EqualFold(origin, "https://"+host)
 }
