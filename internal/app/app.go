@@ -17,7 +17,7 @@ import (
 
 func Run() error {
 	addr := env("ADDR", ":8080")
-	dbPath := env("DB_PATH", "/data/cricidev.db")
+	dbPath := env("DB_PATH", "data/cricidev.db")
 
 	if err := os.MkdirAll(filepath.Dir(dbPath), 0o755); err != nil {
 		return err

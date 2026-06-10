@@ -41,7 +41,13 @@ db/              schema do SQLite
 go run ./cmd/site
 ```
 
-Por padrão a aplicação sobe em `:8080` e grava o banco em `/data/cricidev.db`.
+Por padrão a aplicação sobe em `:8080` e grava o banco em `data/cricidev.db`.
+
+Se quiser mudar o caminho do banco:
+
+```bash
+DB_PATH=/outro/caminho/cricidev.db go run ./cmd/site
+```
 
 ### Com Docker Compose
 
@@ -59,10 +65,12 @@ Depois:
 docker compose up -d --build
 ```
 
+Nessa forma, o banco fica em `/data/cricidev.db` dentro do container e é persistido pelo volume.
+
 ## Variáveis de ambiente
 
 - `ADDR`: endereço HTTP da aplicação. Padrão `:8080`
-- `DB_PATH`: caminho do arquivo SQLite. Padrão `/data/cricidev.db`
+- `DB_PATH`: caminho do arquivo SQLite. Padrão `data/cricidev.db` fora do Docker e `/data/cricidev.db` no `docker compose`
 
 ## Analytics
 
