@@ -35,6 +35,23 @@ db/              schema do SQLite
 
 ## Rodando localmente
 
+### Com Make
+
+Para não decorar os comandos:
+
+```bash
+make help
+```
+
+Os atalhos principais são:
+
+- `make run`: roda no host sem hot reload
+- `make run-docker`: sobe a versão empacotada com Docker
+- `make run-dev`: hot reload no host
+- `make run-dev-docker`: hot reload no Docker
+- `make test`: testes Go
+- `make build`: build local em `tmp/site`
+
 ### Com Go
 
 ```bash
@@ -59,7 +76,7 @@ O projeto agora tem um runner de desenvolvimento com:
 Rode:
 
 ```bash
-./scripts/dev
+make run-dev
 ```
 
 Abra no navegador:
@@ -90,7 +107,7 @@ Essa opção sobe um container de desenvolvimento com:
 Rode:
 
 ```bash
-docker compose --profile dev up --build app-dev
+make run-dev-docker
 ```
 
 Abra no navegador:
@@ -103,7 +120,7 @@ Notas:
 
 - não rode `app` e `app-dev` ao mesmo tempo, porque ambos usam as portas `8080` e `7331`
 - no modo Docker dev, o banco fica em `data/cricidev.db` no host via bind mount
-- se quiser derrubar depois, use `docker compose --profile dev down`
+- se quiser derrubar depois, use `make down`
 
 ### Com Docker Compose
 
@@ -118,7 +135,7 @@ docker volume create sqlite_data
 Depois:
 
 ```bash
-docker compose up -d --build
+make run-docker
 ```
 
 Nessa forma, o banco fica em `/data/cricidev.db` dentro do container e é persistido pelo volume.
