@@ -442,6 +442,10 @@ a {
 }
 
 @media (max-width: 980px) {
+  .shell {
+    width: min(var(--shell), calc(100vw - 3rem));
+  }
+
   .hero__grid,
   .grid--2,
   .section__body--contributors,
@@ -498,7 +502,7 @@ a {
 
 @media (max-width: 640px) {
   .shell {
-    width: min(var(--shell), calc(100vw - 1.5rem));
+    width: min(var(--shell), calc(100vw - 4rem));
   }
 
   .hero {
