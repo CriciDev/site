@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -51,7 +52,7 @@ func Run() error {
 		IdleTimeout:       60 * time.Second,
 	}
 
-	log.Printf("cricidev site listening on %s", addr)
+	log.Printf("cricidev site listening on %s", displayURL(addr))
 
 	if err := httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		return err
@@ -65,4 +66,18 @@ func env(key, fallback string) string {
 		return value
 	}
 	return fallback
+}
+
+func displayURL(addr string) string {
+	host, port, err := net.SplitHostPort(addr)
+	if err != nil {
+		return "http://" + addr
+	}
+
+	// When binding to all interfaces, log a browser-friendly local URL instead.
+	if host == "" || host == "0.0.0.0" || host == "::" {
+		host = "localhost"
+	}
+
+	return "http://" + net.JoinHostPort(host, port)
 }
