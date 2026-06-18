@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT_DIR"
+
+DEV_PROXY_UPSTREAM="${DEV_PROXY_UPSTREAM:-http://127.0.0.1:8080}"
+DEV_PROXY_BIND="${DEV_PROXY_BIND:-127.0.0.1}"
+DEV_PROXY_PORT="${DEV_PROXY_PORT:-7331}"
+
+cleanup() {
+  local status=$?
+
+  if [[ -n "${AIR_PID:-}" ]]; then
+    kill "$AIR_PID" 2>/dev/null || true
+  fi
+
+  if [[ -n "${TEMPL_PID:-}" ]]; then
+    kill "$TEMPL_PID" 2>/dev/null || true
+  fi
+
+  wait 2>/dev/null || true
+  exit "$status"
+}
+
+trap cleanup EXIT INT TERM
+
+air -c .air.toml &
+AIR_PID=$!
+
+templ generate \
+  -watch \
+  -proxy="$DEV_PROXY_UPSTREAM" \
+  -proxybind="$DEV_PROXY_BIND" \
+  -proxyport="$DEV_PROXY_PORT" \
+  -watch-pattern='(.+\.go$)|(.+\.templ$)|(.+_templ\.txt$)|(.+\.css$)|(.+\.js$)|(.+\.(png|jpg|jpeg|svg|gif|webp)$)' \
+  -ignore-pattern='(^|/)(tmp|data)(/|$)|.+_templ\.go$' &
+TEMPL_PID=$!
+
+wait -n "$AIR_PID" "$TEMPL_PID"

@@ -49,6 +49,62 @@ Se quiser mudar o caminho do banco:
 DB_PATH=/outro/caminho/cricidev.db go run ./cmd/site
 ```
 
+### Com hot reload no modo dev
+
+O projeto agora tem um runner de desenvolvimento com:
+
+- `air` para rebuild/restart do binário Go
+- `templ` para regenerar templates e fazer live reload no navegador
+
+Rode:
+
+```bash
+./scripts/dev
+```
+
+Abra no navegador:
+
+```text
+http://localhost:7331
+```
+
+Esse endereço é o proxy do `templ`, que recarrega a página quando você altera:
+
+- arquivos `.go`
+- arquivos `.templ`
+- assets em `assets/` como `.css`, `.js` e imagens
+
+O servidor Go continua rodando internamente em `http://localhost:8080`.
+
+Se preferir, o mesmo fluxo também pode rodar dentro do Docker.
+
+### Com hot reload via Docker
+
+Essa opção sobe um container de desenvolvimento com:
+
+- `air` dentro do container
+- `templ` dentro do container
+- bind mount do código local
+- SQLite salvo em `data/cricidev.db` no próprio repositório
+
+Rode:
+
+```bash
+docker compose --profile dev up --build app-dev
+```
+
+Abra no navegador:
+
+```text
+http://localhost:7331
+```
+
+Notas:
+
+- não rode `app` e `app-dev` ao mesmo tempo, porque ambos usam as portas `8080` e `7331`
+- no modo Docker dev, o banco fica em `data/cricidev.db` no host via bind mount
+- se quiser derrubar depois, use `docker compose --profile dev down`
+
 ### Com Docker Compose
 
 O `docker compose` usa um volume externo chamado `sqlite_data`.
@@ -98,6 +154,8 @@ Depois de alterar arquivos `.templ`, rode:
 ```bash
 templ generate
 ```
+
+No fluxo de desenvolvimento com `./scripts/dev`, isso acontece automaticamente.
 
 ## Build
 

@@ -11,6 +11,29 @@ services:
       - sqlite_data:/data
     restart: unless-stopped
 
+  app-dev:
+    profiles: ["dev"]
+    build:
+      context: .
+      target: dev
+    working_dir: /workspace
+    command: ["bash", "./scripts/dev"]
+    environment:
+      ADDR: ":8080"
+      DB_PATH: "/workspace/data/cricidev.db"
+      DEV_PROXY_UPSTREAM: "http://127.0.0.1:8080"
+      DEV_PROXY_BIND: "0.0.0.0"
+      DEV_PROXY_PORT: "7331"
+    ports:
+      - "8080:8080"
+      - "7331:7331"
+    volumes:
+      - .:/workspace
+      - go_mod_cache:/go/pkg/mod
+      - go_build_cache:/root/.cache/go-build
+
 volumes:
   sqlite_data:
     external: true
+  go_mod_cache:
+  go_build_cache:
