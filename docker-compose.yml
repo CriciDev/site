@@ -16,6 +16,7 @@ services:
     build:
       context: .
       target: dev
+      network: host
     working_dir: /workspace
     command: ["sh", "./scripts/dev"]
     environment:
