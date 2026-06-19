@@ -1,9 +1,10 @@
-.PHONY: help run run-docker run-dev run-dev-docker down templ test build clean
+.PHONY: help run dev run-docker run-dev run-dev-docker down templ test build clean
 
 help:
 	@printf '%s\n' \
 		'Targets:' \
 		'  make run         - roda a app sem hot reload no host' \
+		'  make dev         - alias para hot reload no host' \
 		'  make run-docker  - sobe a app empacotada via docker compose' \
 		'  make run-dev     - hot reload no host com air + templ' \
 		'  make run-dev-docker - hot reload no Docker com air + templ' \
