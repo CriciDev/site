@@ -32,13 +32,15 @@ templ Page() {
 						class="nav-toggle"
 						type="button"
 						x-on:click="navOpen = !navOpen"
+						aria-expanded="false"
 						x-bind:aria-expanded="navOpen.toString()"
 						aria-controls="site-nav"
 						aria-label="Abrir navegação"
+						x-bind:aria-label="navOpen ? 'Fechar navegação' : 'Abrir navegação'"
 					>
-						<span></span>
-						<span></span>
-						<span></span>
+						<span aria-hidden="true"></span>
+						<span aria-hidden="true"></span>
+						<span aria-hidden="true"></span>
 					</button>
 					<nav
 						id="site-nav"
