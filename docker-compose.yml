@@ -17,7 +17,7 @@ services:
       context: .
       target: dev
     working_dir: /workspace
-    command: ["bash", "./scripts/dev"]
+    command: ["sh", "./scripts/dev"]
     environment:
       ADDR: ":8080"
       DB_PATH: "/workspace/data/cricidev.db"
