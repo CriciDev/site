@@ -1,5 +1,11 @@
 .PHONY: help volume up down logs restart build run dev dev-docker templ test clean
 
+ifeq ($(OS),Windows_NT)
+DEV_CMD = powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev.ps1
+else
+DEV_CMD = ./scripts/dev
+endif
+
 help:
 	@printf '%s\n' \
 		'Targets:' \
@@ -37,7 +43,7 @@ run:
 	go run ./cmd/site
 
 dev:
-	./scripts/dev
+	@$(DEV_CMD)
 
 dev-docker: volume
 	docker compose --profile dev up --build app-dev
@@ -50,4 +56,3 @@ test:
 
 clean:
 	rm -rf ./tmp ./build-errors.log
-

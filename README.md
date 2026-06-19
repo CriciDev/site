@@ -81,6 +81,8 @@ Rode:
 make dev
 ```
 
+No Windows nativo, o `make dev` chama automaticamente o script PowerShell correspondente.
+
 Abra no navegador:
 
 ```text
