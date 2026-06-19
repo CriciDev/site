@@ -502,7 +502,7 @@ a {
 
 @media (max-width: 640px) {
   .shell {
-    width: min(var(--shell), calc(100vw - 4rem));
+    width: min(var(--shell), calc(100vw - 3rem));
   }
 
   .hero {
