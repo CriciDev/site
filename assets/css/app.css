@@ -101,6 +101,15 @@ a {
   font: 600 0.95rem/1.2 "Inter", system-ui, sans-serif;
 }
 
+.nav--mobile {
+  display: none;
+  
+}
+
+.nav-disclosure {
+  display: none;
+}
+
 .nav a:hover {
   color: var(--text);
 }
@@ -110,15 +119,37 @@ a {
   width: 48px;
   height: 48px;
   padding: 0;
+  margin: 0;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: rgba(15, 30, 46, 0.88);
   color: var(--text);
+  list-style: none;
+  appearance: none;
+  -webkit-appearance: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 0.28rem;
   cursor: pointer;
+}
+
+.nav-toggle:hover {
+  border-color: rgba(0, 173, 216, 0.45);
+  box-shadow: 0 12px 26px rgba(0, 173, 216, 0.08);
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid rgba(246, 195, 67, 0.9);
+  outline-offset: 3px;
+}
+
+.nav-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.nav-toggle::marker {
+  content: "";
 }
 
 .nav-toggle span {
@@ -463,9 +494,20 @@ a {
 
   .nav-toggle {
     display: inline-flex;
+    
   }
 
-  .nav {
+  .nav-disclosure {
+    position: relative;
+    display: block;
+    
+  }
+
+  .nav--desktop {
+    display: none;
+  }
+
+  .nav-disclosure .nav--mobile {
     position: absolute;
     top: calc(100% - 0.2rem);
     right: 0;
@@ -483,7 +525,7 @@ a {
     box-shadow: var(--shadow);
   }
 
-  .nav--open {
+  .nav-disclosure[open] .nav--mobile {
     display: flex;
   }
 
@@ -519,6 +561,10 @@ a {
     width: 100%;
   }
 
+  .nav {
+    justify-content: start;
+width: 300px !important;
+  }
   .cta__box,
   .card,
   .project,
