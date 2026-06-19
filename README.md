@@ -46,6 +46,7 @@ make help
 Os atalhos principais são:
 
 - `make run`: roda no host sem hot reload
+- `make dev`: alias curto para hot reload no host
 - `make run-docker`: sobe a versão empacotada com Docker
 - `make run-dev`: hot reload no host
 - `make run-dev-docker`: hot reload no Docker
@@ -76,6 +77,12 @@ O projeto agora tem um runner de desenvolvimento com:
 Rode:
 
 ```bash
+make dev
+```
+
+ou:
+
+```bash
 make run-dev
 ```
 
@@ -92,6 +99,11 @@ Esse endereço é o proxy do `templ`, que recarrega a página quando você alter
 - assets em `assets/` como `.css`, `.js` e imagens
 
 O servidor Go continua rodando internamente em `http://localhost:8080`.
+
+Importante:
+
+- abra `http://localhost:7331` durante o desenvolvimento
+- `http://localhost:8080` serve a aplicação Go diretamente, sem live reload no navegador
 
 Se preferir, o mesmo fluxo também pode rodar dentro do Docker.
 
@@ -120,7 +132,6 @@ Notas:
 
 - não rode `app` e `app-dev` ao mesmo tempo, porque ambos usam as portas `8080` e `7331`
 - no modo Docker dev, o banco fica em `data/cricidev.db` no host via bind mount
-- se quiser derrubar depois, use `make down`
 
 ### Com Docker Compose
 

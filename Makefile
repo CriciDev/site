@@ -8,14 +8,10 @@ help:
 		'  make run-docker  - sobe a app empacotada via docker compose' \
 		'  make run-dev     - hot reload no host com air + templ' \
 		'  make run-dev-docker - hot reload no Docker com air + templ' \
-		'  make down        - derruba containers do profile dev' \
 		'  make templ       - gera arquivos templ' \
 		'  make test        - roda testes Go' \
 		'  make build       - compila o binario em ./tmp/site' \
 		'  make clean       - remove artefatos locais de build'
-
-down:
-	docker compose --profile dev down
 
 templ:
 	templ generate
