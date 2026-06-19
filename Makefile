@@ -1,4 +1,4 @@
-.PHONY: help volume up down logs restart build run dev dev-docker templ test clean run-docker run-dev run-dev-docker
+.PHONY: help volume up down logs restart build run dev dev-docker templ test clean
 
 help:
 	@printf '%s\n' \
@@ -51,8 +51,3 @@ test:
 clean:
 	rm -rf ./tmp ./build-errors.log
 
-run-docker: up
-
-run-dev: dev
-
-run-dev-docker: dev-docker
