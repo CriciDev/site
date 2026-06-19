@@ -45,11 +45,12 @@ make help
 
 Os atalhos principais são:
 
+- `make up`: sobe a versão empacotada com Docker
+- `make down`: derruba o ambiente do Compose
+- `make logs`: acompanha os logs do Compose
 - `make run`: roda no host sem hot reload
-- `make dev`: alias curto para hot reload no host
-- `make run-docker`: sobe a versão empacotada com Docker
-- `make run-dev`: hot reload no host
-- `make run-dev-docker`: hot reload no Docker
+- `make dev`: hot reload no host
+- `make dev-docker`: hot reload no Docker
 - `make test`: testes Go
 - `make build`: build local em `tmp/site`
 
@@ -78,12 +79,6 @@ Rode:
 
 ```bash
 make dev
-```
-
-ou:
-
-```bash
-make run-dev
 ```
 
 Abra no navegador:
@@ -119,7 +114,7 @@ Essa opção sobe um container de desenvolvimento com:
 Rode:
 
 ```bash
-make run-dev-docker
+make dev-docker
 ```
 
 Abra no navegador:
@@ -135,18 +130,12 @@ Notas:
 
 ### Com Docker Compose
 
-O `docker compose` usa um volume externo chamado `sqlite_data`.
+O `docker compose` usa um volume externo chamado `sqlite_data`, mas o `Makefile` cria esse volume automaticamente antes de subir o ambiente.
 
-Se ele ainda não existir:
-
-```bash
-docker volume create sqlite_data
-```
-
-Depois:
+Rode:
 
 ```bash
-make run-docker
+make up
 ```
 
 Nessa forma, o banco fica em `/data/cricidev.db` dentro do container e é persistido pelo volume.
