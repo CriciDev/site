@@ -511,7 +511,8 @@ a {
     position: absolute;
     top: calc(100% - 0.2rem);
     right: 0;
-    left: 0;
+    left: auto;
+    width: min(320px, calc(100vw - 3rem));
     display: none;
     flex-direction: column;
     align-items: stretch;
