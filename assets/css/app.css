@@ -101,8 +101,63 @@ a {
   font: 600 0.95rem/1.2 "Inter", system-ui, sans-serif;
 }
 
+.nav--mobile {
+  display: none;
+  
+}
+
+.nav-disclosure {
+  display: none;
+}
+
 .nav a:hover {
   color: var(--text);
+}
+
+.nav-toggle {
+  display: none;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(15, 30, 46, 0.88);
+  color: var(--text);
+  list-style: none;
+  appearance: none;
+  -webkit-appearance: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.28rem;
+  cursor: pointer;
+}
+
+.nav-toggle:hover {
+  border-color: rgba(0, 173, 216, 0.45);
+  box-shadow: 0 12px 26px rgba(0, 173, 216, 0.08);
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid rgba(246, 195, 67, 0.9);
+  outline-offset: 3px;
+}
+
+.nav-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.nav-toggle::marker {
+  content: "";
+}
+
+.nav-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
 }
 
 .hero {
@@ -418,6 +473,10 @@ a {
 }
 
 @media (max-width: 980px) {
+  .shell {
+    width: min(var(--shell), calc(100vw - 3rem));
+  }
+
   .hero__grid,
   .grid--2,
   .section__body--contributors,
@@ -427,19 +486,66 @@ a {
   }
 
   .topbar__inner {
+    position: relative;
     padding-block: 1rem;
-    align-items: start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
   }
 
-  .nav {
-    gap: 0.75rem 1rem;
+  .nav-toggle {
+    display: inline-flex;
+    
+  }
+
+  .nav-disclosure {
+    position: relative;
+    display: block;
+    
+  }
+
+  .nav--desktop {
+    display: none;
+  }
+
+  .nav-disclosure .nav--mobile {
+    position: absolute;
+    top: calc(100% - 0.2rem);
+    right: 0;
+    left: auto;
+    width: min(320px, calc(100vw - 3rem));
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid rgba(30, 41, 59, 0.92);
+    border-radius: 20px;
+    background:
+      radial-gradient(circle at top right, rgba(0, 173, 216, 0.1), transparent 12rem),
+      rgba(11, 22, 36, 0.98);
+    box-shadow: var(--shadow);
+  }
+
+  .nav-disclosure[open] .nav--mobile {
+    display: flex;
+  }
+
+  .nav a {
+    display: block;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    background: rgba(15, 30, 46, 0.72);
+  }
+
+  .nav a:hover {
+    border-color: rgba(0, 173, 216, 0.35);
   }
 }
 
 @media (max-width: 640px) {
   .shell {
-    width: min(var(--shell), calc(100vw - 1.5rem));
+    width: min(var(--shell), calc(100vw - 3rem));
   }
 
   .hero {
@@ -456,6 +562,10 @@ a {
     width: 100%;
   }
 
+  .nav {
+    justify-content: start;
+width: 300px !important;
+  }
   .cta__box,
   .card,
   .project,
