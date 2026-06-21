@@ -1,3 +1,12 @@
+FROM golang:1.26.1-alpine AS dev
+
+WORKDIR /workspace
+
+COPY go.mod go.sum ./
+RUN go mod download
+RUN go install github.com/cosmtrek/air@v1.51.0
+RUN go install github.com/a-h/templ/cmd/templ@v0.3.1020
+
 FROM golang:1.26.1-alpine AS build
 
 WORKDIR /src

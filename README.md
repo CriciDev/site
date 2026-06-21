@@ -35,6 +35,25 @@ db/              schema do SQLite
 
 ## Rodando localmente
 
+### Com Make
+
+Para não decorar os comandos:
+
+```bash
+make help
+```
+
+Os atalhos principais são:
+
+- `make up`: sobe a versão empacotada com Docker
+- `make down`: derruba o ambiente do Compose
+- `make logs`: acompanha os logs do Compose
+- `make run`: roda no host sem hot reload
+- `make dev`: hot reload no host
+- `make dev-docker`: hot reload no Docker
+- `make test`: testes Go
+- `make build`: build local em `tmp/site`
+
 ### Com Go
 
 ```bash
@@ -49,20 +68,76 @@ Se quiser mudar o caminho do banco:
 DB_PATH=/outro/caminho/cricidev.db go run ./cmd/site
 ```
 
-### Com Docker Compose
+### Com hot reload no modo dev
 
-O `docker compose` usa um volume externo chamado `sqlite_data`.
+O projeto agora tem um runner de desenvolvimento com:
 
-Se ele ainda não existir:
+- `air` para rebuild/restart do binário Go
+- `templ` para regenerar templates e fazer live reload no navegador
+
+Rode:
 
 ```bash
-docker volume create sqlite_data
+make dev
 ```
 
-Depois:
+No Windows nativo, o `make dev` chama automaticamente o script PowerShell correspondente.
+
+Abra no navegador:
+
+```text
+http://localhost:7331
+```
+
+Esse endereço é o proxy do `templ`, que recarrega a página quando você altera:
+
+- arquivos `.go`
+- arquivos `.templ`
+- assets em `assets/` como `.css`, `.js` e imagens
+
+O servidor Go continua rodando internamente em `http://localhost:8080`.
+
+Importante:
+
+- abra `http://localhost:7331` durante o desenvolvimento
+- `http://localhost:8080` serve a aplicação Go diretamente, sem live reload no navegador
+
+Se preferir, o mesmo fluxo também pode rodar dentro do Docker.
+
+### Com hot reload via Docker
+
+Essa opção sobe um container de desenvolvimento com:
+
+- `air` dentro do container
+- `templ` dentro do container
+- bind mount do código local
+- SQLite salvo em `data/cricidev.db` no próprio repositório
+
+Rode:
 
 ```bash
-docker compose up -d --build
+make dev-docker
+```
+
+Abra no navegador:
+
+```text
+http://localhost:7331
+```
+
+Notas:
+
+- não rode `app` e `app-dev` ao mesmo tempo, porque ambos usam as portas `8080` e `7331`
+- no modo Docker dev, o banco fica em `data/cricidev.db` no host via bind mount
+
+### Com Docker Compose
+
+O `docker compose` usa um volume externo chamado `sqlite_data`, mas o `Makefile` cria esse volume automaticamente antes de subir o ambiente.
+
+Rode:
+
+```bash
+make up
 ```
 
 Nessa forma, o banco fica em `/data/cricidev.db` dentro do container e é persistido pelo volume.
@@ -98,6 +173,8 @@ Depois de alterar arquivos `.templ`, rode:
 ```bash
 templ generate
 ```
+
+No fluxo de desenvolvimento com `./scripts/dev`, isso acontece automaticamente.
 
 ## Build
 
