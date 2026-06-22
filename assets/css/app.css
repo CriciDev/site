@@ -176,8 +176,7 @@ a {
 .cta__box h2 {
   font-family: "Space Grotesk", system-ui, sans-serif;
   letter-spacing: -0.05em;
-  margin: 0;
-  margin-bottom: 40px;
+  margin: 0 0 2.5rem;
 }
 
 .hero__copy h1 {
