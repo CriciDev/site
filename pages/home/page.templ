@@ -163,7 +163,7 @@ templ Page() {
 					<div class="shell">
 						<div class="section__head">
 							<p class="kicker">projetos da comunidade</p>
-							<h2>A gente tá colocando o site no ar enquanto ele cresce.</h2>
+							<h2>Estamos colocando o site no ar enquanto a comunidade cresce.</h2>
 						</div>
 						<div class="project">
 							<div class="project__content">
@@ -223,17 +223,26 @@ templ Page() {
 									<a class="button button--secondary" data-track="cta_github_contributors" href="https://github.com/CriciDev/site" target="_blank" rel="noreferrer">Ver quem já ajudou</a>
 								</div>
 							</div>
-							<div class="contributors__widget">
-								<p class="contributors__label">contribuidores</p>
-								<a href="https://github.com/CriciDev/site/graphs/contributors" target="_blank" rel="noreferrer">
-									<img
-										class="contributors__image"
-										src="https://contrib.rocks/image?repo=CriciDev/site"
-										alt="Contribuidores do repositório CriciDev/site"
-									/>
-								</a>
-								<p class="contributors__caption">Gente que já ajudou a construir essa comunidade.</p>
-							</div>
+						</div>
+						<div class="contributors__widget contributors__widget--full">
+							<p class="contributors__label">contribuidores</p>
+							<a
+								class="contributors__link"
+								href="https://github.com/CriciDev/site/graphs/contributors"
+								target="_blank"
+								rel="noreferrer"
+								aria-label="Abrir a lista de contribuidores do repositório CriciDev/site no GitHub"
+							>
+								<img
+									class="contributors__image"
+									src="https://contrib.rocks/image?repo=CriciDev/site"
+									alt="Contribuidores do repositório CriciDev/site"
+									loading="lazy"
+									decoding="async"
+									referrerpolicy="no-referrer"
+								/>
+							</a>
+							<p class="contributors__caption">Gente que já ajudou a construir essa comunidade.</p>
 						</div>
 						<div class="cards">
 							<article class="card card--soft">
