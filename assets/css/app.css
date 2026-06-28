@@ -234,19 +234,19 @@ a {
   transform: translateY(-1px);
 }
 
-.button--primary {
+.buttonPrimary {
   background: linear-gradient(135deg, var(--yellow), #ffd86c);
   color: #07111f;
   box-shadow: 0 14px 34px rgba(246, 195, 67, 0.18);
 }
 
-.button--secondary {
+.buttonSecondary {
   background: var(--bg-elev);
   border-color: var(--line);
   color: var(--text);
 }
 
-.button--secondary:hover {
+.buttonSecondary:hover {
   border-color: rgba(0, 173, 216, 0.45);
   box-shadow: 0 12px 26px rgba(0, 173, 216, 0.08);
 }
@@ -264,7 +264,7 @@ a {
   color: #d9f5ff;
 }
 
-.terminal__label {
+.terminalLabel {
   color: var(--blue);
 }
 
