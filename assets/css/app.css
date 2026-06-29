@@ -45,7 +45,7 @@ a {
   margin: 0 auto;
 }
 
-.topbar {
+.topBar {
   position: sticky;
   top: 0;
   z-index: 40;
@@ -54,7 +54,7 @@ a {
   border-bottom: 1px solid rgba(30, 41, 59, 0.7);
 }
 
-.topbar__inner {
+.topBarInner {
   min-height: 76px;
   display: flex;
   align-items: center;
@@ -68,7 +68,7 @@ a {
   gap: 0.9rem;
 }
 
-.brand__mark {
+.brandMark {
   display: block;
   width: 48px;
   height: 48px;
@@ -77,23 +77,23 @@ a {
   box-shadow: 0 18px 40px rgba(246, 195, 67, 0.24);
 }
 
-.brand__text {
+.brandText {
   display: flex;
   flex-direction: column;
 }
 
-.brand__text strong {
+.brandText strong {
   font-family: "Space Grotesk", system-ui, sans-serif;
   font-size: 1.08rem;
   letter-spacing: -0.03em;
 }
 
-.brand__text small {
+.brandText small {
   color: var(--muted);
   font: 500 0.82rem/1.3 "JetBrains Mono", monospace;
 }
 
-.nav {
+.siteNav {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -101,20 +101,19 @@ a {
   font: 600 0.95rem/1.2 "Inter", system-ui, sans-serif;
 }
 
-.nav--mobile {
-  display: none;
-  
-}
-
-.nav-disclosure {
+.navMobile {
   display: none;
 }
 
-.nav a:hover {
+.navDisclosure {
+  display: none;
+}
+
+.siteNav a:hover {
   color: var(--text);
 }
 
-.nav-toggle {
+.navToggle {
   display: none;
   width: 48px;
   height: 48px;
@@ -134,25 +133,25 @@ a {
   cursor: pointer;
 }
 
-.nav-toggle:hover {
+.navToggle:hover {
   border-color: rgba(0, 173, 216, 0.45);
   box-shadow: 0 12px 26px rgba(0, 173, 216, 0.08);
 }
 
-.nav-toggle:focus-visible {
+.navToggle:focus-visible {
   outline: 2px solid rgba(246, 195, 67, 0.9);
   outline-offset: 3px;
 }
 
-.nav-toggle::-webkit-details-marker {
+.navToggle::-webkit-details-marker {
   display: none;
 }
 
-.nav-toggle::marker {
+.navToggle::marker {
   content: "";
 }
 
-.nav-toggle span {
+.navToggle span {
   display: block;
   width: 18px;
   height: 2px;
@@ -164,22 +163,22 @@ a {
   padding: 5rem 0 2rem;
 }
 
-.hero__grid {
+.heroGrid {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.9fr);
   gap: 2rem;
   align-items: start;
 }
 
-.hero__copy h1,
-.section__head h2,
-.cta__box h2 {
+.heroCopy h1,
+.sectionHead h2,
+.ctaBox h2 {
   font-family: "Space Grotesk", system-ui, sans-serif;
   letter-spacing: -0.05em;
   margin: 0 0 2.5rem;
 }
 
-.hero__copy h1 {
+.heroCopy h1 {
   max-width: 10ch;
   font-size: clamp(2.6rem, 7vw, 4.25rem);
   line-height: 0.98;
@@ -206,7 +205,7 @@ a {
 .text,
 .card p,
 .project p,
-.callout__text {
+.calloutText {
   color: var(--muted);
   line-height: 1.7;
   margin: 1rem 0 0;
@@ -235,19 +234,19 @@ a {
   transform: translateY(-1px);
 }
 
-.button--primary {
+.buttonPrimary {
   background: linear-gradient(135deg, var(--yellow), #ffd86c);
   color: #07111f;
   box-shadow: 0 14px 34px rgba(246, 195, 67, 0.18);
 }
 
-.button--secondary {
+.buttonSecondary {
   background: var(--bg-elev);
   border-color: var(--line);
   color: var(--text);
 }
 
-.button--secondary:hover {
+.buttonSecondary:hover {
   border-color: rgba(0, 173, 216, 0.45);
   box-shadow: 0 12px 26px rgba(0, 173, 216, 0.08);
 }
@@ -265,11 +264,11 @@ a {
   color: #d9f5ff;
 }
 
-.terminal__label {
+.terminalLabel {
   color: var(--blue);
 }
 
-.hero__panel .panel,
+.heroPanel .panel,
 .project,
 .callout,
 .card {
@@ -278,12 +277,12 @@ a {
   box-shadow: var(--shadow);
 }
 
-.hero__panel .panel {
+.heroPanel .panel {
   border-radius: var(--radius-lg);
   padding: 1.35rem;
 }
 
-.panel__eyebrow {
+.panelEyebrow {
   margin: 0;
   color: var(--blue);
   font: 700 0.8rem/1.3 "JetBrains Mono", monospace;
@@ -291,19 +290,19 @@ a {
   text-transform: uppercase;
 }
 
-.panel__metric {
+.panelMetric {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(30, 41, 59, 0.9);
 }
 
-.panel__metric strong {
+.panelMetric strong {
   display: block;
   font-family: "Space Grotesk", system-ui, sans-serif;
   font-size: 1.1rem;
 }
 
-.panel__metric span {
+.panelMetric span {
   display: block;
   margin-top: 0.4rem;
   color: var(--muted);
@@ -314,22 +313,22 @@ a {
   padding: 4.5rem 0;
 }
 
-.section--alt {
+.sectionAlt {
   background: linear-gradient(180deg, rgba(11, 22, 36, 0.32), rgba(11, 22, 36, 0.58));
   border-block: 1px solid rgba(30, 41, 59, 0.8);
 }
 
-.section__head h2,
-.cta__box h2 {
+.sectionHead h2,
+.ctaBox h2 {
   font-size: clamp(2rem, 5vw, 3.25rem);
   line-height: 1.05;
 }
 
-.section__body {
+.sectionBody {
   margin-top: 1.3rem;
 }
 
-.section__body--contributors {
+.sectionBodyContributors {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.95fr);
   gap: 1.2rem;
@@ -342,11 +341,11 @@ a {
   gap: 1.2rem;
 }
 
-.grid--2 {
+.grid2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.cards {
+.cardGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
@@ -358,11 +357,11 @@ a {
   padding: 1.2rem;
 }
 
-.card--soft {
+.cardSoft {
   background: rgba(11, 22, 36, 0.78);
 }
 
-.contributors__widget {
+.contributorsWidget {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -373,23 +372,23 @@ a {
   box-shadow: var(--shadow);
 }
 
-.contributors__widget--full {
+.contributorsWidgetFull {
   margin-top: 1.5rem;
 }
 
-.contributors__label,
-.contributors__caption {
+.contributorsLabel,
+.contributorsCaption {
   margin: 0;
 }
 
-.contributors__label {
+.contributorsLabel {
   color: var(--blue);
   font: 700 0.8rem/1.3 "JetBrains Mono", monospace;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.contributors__link {
+.contributorsLink {
   display: block;
   margin-top: 1rem;
   border-radius: 16px;
@@ -397,12 +396,12 @@ a {
   text-decoration: none;
 }
 
-.contributors__link:focus-visible {
+.contributorsLink:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 4px;
 }
 
-.contributors__iframe {
+.contributorsIframe {
   display: block;
   width: 100%;
   min-height: 118px;
@@ -412,7 +411,7 @@ a {
   background: rgba(7, 17, 31, 0.7);
 }
 
-.contributors__image {
+.contributorsImage {
   display: block;
   width: 100%;
   max-height: 120px;
@@ -423,7 +422,7 @@ a {
   background: rgba(7, 17, 31, 0.7);
 }
 
-.contributors__caption {
+.contributorsCaption {
   margin-top: 0.9rem;
   color: var(--muted);
   line-height: 1.65;
@@ -431,7 +430,7 @@ a {
 
 .card h3,
 .project h3,
-.callout__title {
+.calloutTitle {
   margin: 0;
   font-family: "Space Grotesk", system-ui, sans-serif;
   letter-spacing: -0.03em;
@@ -450,13 +449,13 @@ a {
   padding: 1.35rem;
 }
 
-.callout--wide {
+.calloutWide {
   display: grid;
   gap: 0.6rem;
 }
 
-.callout__label,
-.project__status {
+.calloutLabel,
+.projectStatus {
   margin: 0;
   color: var(--blue);
   font: 700 0.8rem/1.3 "JetBrains Mono", monospace;
@@ -473,13 +472,13 @@ a {
   padding: 1.4rem;
 }
 
-.project__links {
+.projectLinks {
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem;
 }
 
-.cta__box {
+.ctaBox {
   border-radius: calc(var(--radius-lg) + 6px);
   border: 1px solid rgba(246, 195, 67, 0.2);
   padding: 2rem;
@@ -490,7 +489,7 @@ a {
   box-shadow: var(--shadow);
 }
 
-.lead--compact {
+.leadCompact {
   max-width: 54ch;
 }
 
@@ -499,37 +498,37 @@ a {
     width: min(var(--shell), calc(100vw - 3rem));
   }
 
-  .hero__grid,
-  .grid--2,
-  .section__body--contributors,
+  .heroGrid,
+  .grid2,
+  .sectionBodyContributors,
   .project,
-  .cards {
+  .cardGrid {
     grid-template-columns: 1fr;
   }
 
-  .topbar__inner {
+  .topBarInner {
     position: relative;
     padding-block: 1rem;
     align-items: center;
     flex-direction: row;
   }
 
-  .nav-toggle {
+  .navToggle {
     display: inline-flex;
     
   }
 
-  .nav-disclosure {
+  .navDisclosure {
     position: relative;
     display: block;
     
   }
 
-  .nav--desktop {
+  .navDesktop {
     display: none;
   }
 
-  .nav-disclosure .nav--mobile {
+  .navDisclosure .navMobile {
     position: absolute;
     top: calc(100% - 0.2rem);
     right: 0;
@@ -548,7 +547,7 @@ a {
     box-shadow: var(--shadow);
   }
 
-  .nav-disclosure[open] .nav--mobile {
+  .navDisclosure[open] .navMobile {
     display: flex;
   }
 
@@ -575,7 +574,7 @@ a {
   }
 
   .actions,
-  .project__links {
+  .projectLinks {
     flex-direction: column;
     align-items: stretch;
   }
@@ -586,12 +585,11 @@ a {
 
   .nav {
     justify-content: start;
-width: 300px !important;
   }
-  .cta__box,
+  .ctaBox,
   .card,
   .project,
-  .hero__panel .panel {
+  .heroPanel .panel {
     border-radius: 20px;
   }
 }

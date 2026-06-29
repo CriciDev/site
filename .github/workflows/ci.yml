@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   validate:
-    name: Validate Go app and Docker build
+    name: Validate app and Docker build
     runs-on: ubuntu-latest
 
     steps:
@@ -24,14 +24,8 @@ jobs:
           go-version-file: go.mod
           cache: true
 
-      - name: Download dependencies
-        run: go mod download
-
-      - name: Run tests
-        run: go test ./...
-
-      - name: Build app
-        run: go build ./cmd/site
+      - name: Run checks
+        run: make check
 
       - name: Build Docker Compose services
         run: docker compose build

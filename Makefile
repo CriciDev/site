@@ -1,4 +1,4 @@
-.PHONY: help volume up down logs restart build run dev dev-docker templ test clean
+.PHONY: help volume up down logs restart build run dev dev-docker templ test fmt vet check clean
 
 ifeq ($(OS),Windows_NT)
 DEV_CMD = powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev.ps1
@@ -18,7 +18,10 @@ help:
 		'  make dev-docker  - hot reload no Docker com air + templ' \
 		'  make templ       - gera arquivos templ' \
 		'  make test        - roda testes Go' \
+		'  make fmt         - formata os pacotes Go' \
+		'  make vet         - roda go vet' \
 		'  make build       - compila o binario em ./tmp/site' \
+		'  make check       - roda fmt, vet, test e build' \
 		'  make clean       - remove artefatos locais de build'
 
 volume:
@@ -53,6 +56,14 @@ templ:
 
 test:
 	go test ./...
+
+fmt:
+	go fmt ./...
+
+vet:
+	go vet ./...
+
+check: fmt vet test build
 
 clean:
 	rm -rf ./tmp ./build-errors.log
